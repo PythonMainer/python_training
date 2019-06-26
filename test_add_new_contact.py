@@ -22,17 +22,17 @@ class AddNewContact(unittest.TestCase):
         driver.find_element_by_link_text("add new").click()
         driver.find_element_by_name("firstname").click()
         driver.find_element_by_name("firstname").clear()
-        driver.find_element_by_name("firstname").send_keys(u"Максим")
+        driver.find_element_by_name("firstname").send_keys("Максим")
         driver.find_element_by_name("middlename").clear()
-        driver.find_element_by_name("middlename").send_keys(u"Сергеевич")
+        driver.find_element_by_name("middlename").send_keys("Сергеевич")
         driver.find_element_by_name("lastname").clear()
-        driver.find_element_by_name("lastname").send_keys(u"Иванов")
+        driver.find_element_by_name("lastname").send_keys("Иванов")
         driver.find_element_by_name("nickname").click()
         driver.find_element_by_name("nickname").clear()
-        driver.find_element_by_name("nickname").send_keys(u"Максик")
+        driver.find_element_by_name("nickname").send_keys("Максик")
         driver.find_element_by_name("address").click()
         driver.find_element_by_name("address").clear()
-        driver.find_element_by_name("address").send_keys(u"г.Москва ул.Мира")
+        driver.find_element_by_name("address").send_keys("г.Москва ул.Мира")
         driver.find_element_by_name("home").click()
         driver.find_element_by_name("email").click()
         driver.find_element_by_name("mobile").click()
@@ -43,13 +43,11 @@ class AddNewContact(unittest.TestCase):
         driver.find_element_by_name("email").send_keys("1@mail.ru")
         driver.find_element_by_xpath("(//input[@name='submit'])[2]").click()
         driver.find_element_by_link_text("home").click()
-        driver.find_element_by_xpath("//html").click()
         driver.find_element_by_link_text("Logout").click()
 
-    
     def tearDown(self):
         self.driver.quit()
-        self.assertEqual([], self.verificationErrors)
+
 
 if __name__ == "__main__":
     unittest.main()
