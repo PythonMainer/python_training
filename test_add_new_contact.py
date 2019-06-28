@@ -3,6 +3,7 @@ from selenium import webdriver
 import unittest
 from contact import Contact
 
+
 class AddNewContact(unittest.TestCase):
     def setUp(self):
         self.dw = webdriver.Firefox()
