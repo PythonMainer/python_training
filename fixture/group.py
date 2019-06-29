@@ -37,6 +37,22 @@ class GroupHelper:
         dw.find_element_by_name("delete").click()
         self.return_group_page()
 
+    def edit(self, group):
+        dw = self.app.dw
+        self.open_group_page()
+        # select first group
+        dw.find_element_by_name("selected[]").click()
+        # submit edit
+        dw.find_element_by_name("edit").click()
+        dw.find_element_by_name("group_name").click()
+        dw.find_element_by_name("group_name").send_keys(group.name)
+        dw.find_element_by_name("group_header").click()
+        dw.find_element_by_name("group_header").send_keys(group.header)
+        dw.find_element_by_name("group_footer").click()
+        dw.find_element_by_name("group_footer").send_keys(group.footer)
+        dw.find_element_by_name("update").click()
+        self.return_group_page()
+
     def open_group_page(self):
         dw = self.app.dw
         dw.find_element_by_link_text("groups").click()
