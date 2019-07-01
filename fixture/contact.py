@@ -42,6 +42,7 @@ class ContactHelper:
         self.fill_contact_form(contact)
         # submit contact update
         wd.find_element_by_xpath("(//input[@name='update'])[2]").click()
+        self.return_main_page()
 
     def delete_first_contact(self):
         wd = self.app.wd
