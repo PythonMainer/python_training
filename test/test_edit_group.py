@@ -1,5 +1,9 @@
 from model.group import Group
 
 
-def test_edit__group(app):
-    app.group.edit(Group(name='_edit', header='_edit', footer='_edit'))
+def test_edit_name__group(app):
+    app.group.edit_first_group(Group(name='New group'))
+
+
+def test_edit_header__group(app):
+    app.group.edit_first_group(Group(header='New header'))
