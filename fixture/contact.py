@@ -12,6 +12,7 @@ class ContactHelper:
         self.fill_contact_form(contact)
         # submit contact creation
         wd.find_element_by_xpath("(//input[@name='submit'])[2]").click()
+        self.open_main_page()
 
     def fill_contact_form(self, contact):
         wd = self.app.wd
@@ -37,7 +38,7 @@ class ContactHelper:
         self.fill_contact_form(contact)
         # submit contact update
         wd.find_element_by_xpath("(//input[@name='update'])[2]").click()
-        self.return_main_page()
+        self.open_main_page()
 
     def delete_first_contact(self):
         wd = self.app.wd
@@ -46,8 +47,13 @@ class ContactHelper:
         wd.find_element_by_xpath("//input[@value='Delete']").click()
         wd.switch_to.alert.accept()
         wd.find_element_by_name("selected[]").click()
-        self.return_main_page()
+        self.open_main_page()
 
-    def return_main_page(self):
+    def count(self):
+        wd = self.app.wd
+        self.open_main_page()
+        return len(wd.find_elements_by_name("selected[]"))
+
+    def open_main_page(self):
         wd = self.app.wd
         wd.find_element_by_link_text("home").click()
