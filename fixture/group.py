@@ -39,7 +39,7 @@ class GroupHelper:
         self.select_first_group()
         # submit deletion
         wd.find_element_by_name("delete").click()
-        self.return_main_page()
+        self.open_main_page()
 
     def select_first_group(self):
         wd = self.app.wd
@@ -66,6 +66,6 @@ class GroupHelper:
         wd = self.app.wd
         wd.find_element_by_link_text("groups").click()
 
-    def return_main_page(self):
+    def open_main_page(self):
         wd = self.app.wd
         wd.find_element_by_link_text("home").click()
