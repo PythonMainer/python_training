@@ -56,5 +56,5 @@ class ContactHelper:
 
     def open_main_page(self):
         wd = self.app.wd
-        if not (wd.current_url.endswith("/group.php") and len(wd.find_elements__by_xpath("//input[@value='Send e-Mail']")) > 0):
+        if not (wd.current_url.endswith("/index.php") and len(wd.find_elements_by_name("add")) > 0):
             wd.find_element_by_link_text("home").click()
