@@ -33,25 +33,32 @@ class ContactHelper:
             wd.find_element_by_name(field_name).clear()
             wd.find_element_by_name(field_name).send_keys(text)
 
-    def edit_first(self, contact):
+    def edit_contact_by_index(self, index, contact):
         wd = self.app.wd
         # select first contact
-        wd.find_element_by_xpath("(//img[@alt='Edit'])[1]").click()
+        wd.find_elements_by_xpath("(//img[@alt='Edit'])")[index].click()
         self.fill_contact_form(contact)
         # submit contact update
         wd.find_element_by_xpath("(//input[@name='update'])[2]").click()
         self.open_main_page()
         self.contact_cache = None
 
-    def delete_first_contact(self):
+    def delete_contact_by_index(self, index):
         wd = self.app.wd
         # select first contact
-        wd.find_element_by_name("selected[]").click()
+        self.select_contact_by_index(index)
         wd.find_element_by_xpath("//input[@value='Delete']").click()
         wd.switch_to.alert.accept()
-        wd.find_element_by_name("selected[]").click()
+        wd.find_element_by_css_selector("div.msgbox")
         self.open_main_page()
         self.contact_cache = None
+
+    def select_contact_by_index(self, index):
+        wd = self.app.wd
+        wd.find_elements_by_name("selected[]")[index].click()
+
+    def delete_first_contact(self):
+        self.delete_contact_by_index(0)
 
     def count(self):
         wd = self.app.wd
