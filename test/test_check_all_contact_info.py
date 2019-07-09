@@ -6,7 +6,7 @@ from model.contact import Contact
 def test_check_all_contact_info(app):
     if app.contact.count() == 0:
         app.contact.create(Contact(firstname='Вадим', middlename='Сергеевич', lastname='Трофимов',
-                      nickname='Вадик', address='г.Москва ул.Мира', homephone='+7831256899', mobilephone='+7952-548-6933',
+                      nickname='Вадик', address='г.Москва ул.Мира д.13', homephone='+7831256899', mobilephone='+7952-548-6933',
                       workphone='+7(800)3585665', email2='2@mail.ru', email3='3@mail.ru', homepage='www.mypage.ru'))
     contacts_list = app.contact.get_contact_list()
     index = randrange(len(contacts_list))
@@ -14,6 +14,7 @@ def test_check_all_contact_info(app):
     contact_from_edit_page = app.contact.get_contact_info_from_edit_page(index)
     assert contact_from_home_page.firstname == contact_from_edit_page.firstname
     assert contact_from_home_page.lastname == contact_from_edit_page.lastname
+    assert contact_from_home_page.address == contact_from_edit_page.address
     assert contact_from_home_page.all_phones_from_home_page == merge_phones_like_on_home_page(contact_from_edit_page)
     assert contact_from_home_page.all_emails == merge_email_like_on_home_page(contact_from_edit_page)
 
