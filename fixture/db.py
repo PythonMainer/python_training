@@ -38,10 +38,10 @@ class DbFixture:
         list = []
         cursor = self.connection.cursor()
         try:
-            cursor.execute("SELECT id, firstname, lastname FROM addressbook WHERE deprecated='0000-00-00 00:00:00'")
+            cursor.execute("SELECT id, firstname, lastname, address FROM addressbook WHERE deprecated='0000-00-00 00:00:00'")
             for row in cursor:
-                (id, firstname, lastname) = row
-                list.append(Contact(id=str(id), firstname=firstname, lastname=lastname))
+                (id, firstname, lastname, address) = row
+                list.append(Contact(id=str(id), firstname=firstname, lastname=lastname, address=address))
         finally:
             cursor.close()
         return list
@@ -49,10 +49,14 @@ class DbFixture:
     def get_contact_id(self, id_in):
         cursor = self.connection.cursor()
         try:
-            cursor.execute("SELECT id, firstname, lastname from addressbook WHERE id='%s'"
+            cursor.execute("SELECT id, firstname, lastname, address, email, "
+                           "email2, email3, home, mobile, work, phone2 "
+                           "from addressbook WHERE id='%s'"
                            % id_in)
-            (id, firstname, lastname) = cursor.fetchone()
-            contact_return = Contact(id=str(id), firstname=firstname, lastname=lastname)
+            (id, firstname, lastname, address, email, email2, email3, home, mobile, work, phone2) = cursor.fetchone()
+            contact_return = Contact(id=str(id), firstname=firstname, lastname=lastname, address=address, email=email,
+                                     email2=email2, email3=email3, homephone=home, mobilephone=mobile, workphone=work,
+                                     secondaryphone=phone2)
         finally:
             cursor.close()
         return contact_return
