@@ -1,3 +1,4 @@
+from selenium.webdriver.support.select import Select
 from model.contact import Contact
 import re
 
@@ -163,3 +164,24 @@ class ContactHelper:
         secondaryphone = re.search("P: (.*)", text).group(1)
         return Contact(homephone=homephone, workphone=workphone,
                        mobilephone=mobilephone, secondaryphone=secondaryphone)
+
+    def add_contact_to_group(self, id_contact, id_group):
+        wd = self.app.wd
+        self.open_main_page()
+        self.select_contact_by_id(id_contact)
+        wd.implicitly_wait(10)
+        wd.find_element_by_name("to_group").click()
+        Select(wd.find_element_by_name("to_group")).select_by_value(id_group)
+        wd.find_element_by_name("add").click()
+        self.open_group_page_with_contacts(id)
+        self.open_group_page_with_contacts(id_group)
+
+    def open_group_page_with_contacts(self, id):
+        wd = self.app.wd
+        if not (wd.current_url == "http://localhost/addressbook/?group=%s" % id
+                and len(wd.find_element_by_name("remove")) > 0):
+            wd.get("http://localhost/addressbook/?group=%s" % id)
+
+
+
+
