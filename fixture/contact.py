@@ -182,6 +182,12 @@ class ContactHelper:
                 and len(wd.find_element_by_name("remove")) > 0):
             wd.get("http://localhost/addressbook/?group=%s" % id)
 
+    def delete_contact_from_group(self, id_group, id_contact):
+        wd = self.app.wd
+        self.open_group_page_with_contacts(id_group)
+        self.select_contact_by_id(id_contact)
+        wd.find_element_by_name("remove").click()
+
 
 
 
