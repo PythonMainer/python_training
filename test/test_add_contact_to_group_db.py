@@ -1,6 +1,7 @@
 from model.contact import Contact
 from model.group import Group
 import random
+import pytest
 
 
 def test_add_contact_to_group_db(app, db, orm):
@@ -12,9 +13,14 @@ def test_add_contact_to_group_db(app, db, orm):
         app.contact.create(contact)
     if len(db.get_group_list()) == 0:
         app.group.create(Group(name='group', header='2', footer='2'))
-    id_contact = random.choice(db.get_contact_list()).id
-    id_group = random.choice(db.get_group_list()).id
-    app.contact.add_contact_to_group(id_contact, id_group)
+    with pytest.allure.step('Сравниваем список контактов'):
+        contact_list = db.get_contact_list()
+    with pytest.allure.step('Выбираем контакт'):
+        id_contact = random.choice(db.get_contact_list()).id
+    with pytest.allure.step('Выбираем группу'):
+        id_group = random.choice(db.get_group_list()).id
+    with pytest.allure.step('Добавляем контакт в группу'):
+        app.contact.add_contact_to_group(id_contact, id_group)
     assert db.get_contact_id(id_contact) in orm.get_contacts_in_group(Group(id=id_group))
 
 
